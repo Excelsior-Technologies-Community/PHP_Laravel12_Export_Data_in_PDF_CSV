@@ -12,6 +12,16 @@ class StudentsExport implements FromCollection, WithHeadings
 
     protected string $search;
 
+    protected string $status;
+
+    protected string $fromDate;
+
+    protected string $toDate;
+
+    protected string $sort;
+
+    protected string $direction;
+
     /*
     |--------------------------------------------------------------------------
     | Constructor
@@ -20,12 +30,21 @@ class StudentsExport implements FromCollection, WithHeadings
 
     public function __construct(
         array $studentIds = [],
-        string $search = ''
+        string $search = '',
+        string $status = '',
+        string $fromDate = '',
+        string $toDate = '',
+        string $sort = 'id',
+        string $direction = 'asc'
     ) {
         $this->studentIds = $studentIds;
         $this->search = $search;
+        $this->status = $status;
+        $this->fromDate = $fromDate;
+        $this->toDate = $toDate;
+        $this->sort = $sort;
+        $this->direction = $direction;
     }
-
 
     /*
     |--------------------------------------------------------------------------
@@ -47,40 +66,123 @@ class StudentsExport implements FromCollection, WithHeadings
             $query->whereIn('id', $this->studentIds);
         }
 
-
         /*
         |--------------------------------------------------------------------------
-        | Search Filter
+        | Search
         |--------------------------------------------------------------------------
         */
 
         if (!empty($this->search)) {
-            $query->where(function ($q) {
-                $q->where(
-                    'name',
-                    'like',
-                    '%' . $this->search . '%'
-                )
-                ->orWhere(
-                    'email',
-                    'like',
-                    '%' . $this->search . '%'
-                );
+            $search = $this->search;
+
+            $query->where(function ($q) use ($search) {
+
+                $q->where('id', 'like', '%' . $search . '%')
+                    ->orWhere('name', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%');
+
             });
         }
 
+        /*
+        |--------------------------------------------------------------------------
+        | Status Filter
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            in_array(
+                $this->status,
+                ['active', 'inactive'],
+                true
+            )
+        ) {
+            $query->where(
+                'status',
+                $this->status
+            );
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | From Date
+        |--------------------------------------------------------------------------
+        */
+
+        if (!empty($this->fromDate)) {
+            $query->whereDate(
+                'created_at',
+                '>=',
+                $this->fromDate
+            );
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | To Date
+        |--------------------------------------------------------------------------
+        */
+
+        if (!empty($this->toDate)) {
+            $query->whereDate(
+                'created_at',
+                '<=',
+                $this->toDate
+            );
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Allowed Sorting Columns
+        |--------------------------------------------------------------------------
+        */
+
+        $allowedSorts = [
+            'id',
+            'name',
+            'email',
+            'created_at',
+            'status',
+        ];
+
+        if (!in_array($this->sort, $allowedSorts, true)) {
+            $this->sort = 'id';
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Allowed Direction
+        |--------------------------------------------------------------------------
+        */
+
+        if (!in_array(
+            $this->direction,
+            ['asc', 'desc'],
+            true
+        )) {
+            $this->direction = 'asc';
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Return Data
+        |--------------------------------------------------------------------------
+        */
 
         return $query
             ->select(
                 'id',
                 'name',
                 'email',
+                'status',
                 'created_at'
             )
-            ->orderBy('id', 'asc')
+            ->orderBy(
+                $this->sort,
+                $this->direction
+            )
             ->get();
     }
-
 
     /*
     |--------------------------------------------------------------------------
@@ -94,7 +196,8 @@ class StudentsExport implements FromCollection, WithHeadings
             'ID',
             'Name',
             'Email',
-            'Created At'
+            'Status',
+            'Created At',
         ];
     }
 }
