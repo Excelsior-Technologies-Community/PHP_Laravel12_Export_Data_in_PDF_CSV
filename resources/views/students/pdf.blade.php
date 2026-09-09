@@ -1,28 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+
+    <meta charset="UTF-8">
+
     <title>Students List</title>
 
     <style>
-        /* PDF safe font */
+
         body {
             font-family: DejaVu Sans, sans-serif;
             font-size: 12px;
         }
 
-        /* PDF heading */
         h2 {
             text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
             margin-bottom: 15px;
         }
 
-        /* Table styling */
+        .summary {
+            margin-bottom: 15px;
+            font-size: 11px;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
         }
 
-        /* Table header cells */
         table th {
             background-color: #f1f5f9;
             border: 1px solid #000;
@@ -30,41 +42,112 @@
             text-align: left;
         }
 
-        /* Table body cells */
         table td {
             border: 1px solid #000;
             padding: 8px;
         }
 
-        /* Zebra rows */
         tr:nth-child(even) {
             background-color: #f9fafb;
         }
+
     </style>
+
 </head>
 
 <body>
 
-<!-- PDF title -->
-<h2>Students List</h2>
+    <h2>🎓 Students List</h2>
 
-<!-- PDF data table -->
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Email</th>
-    </tr>
 
-    <!-- Loop through students -->
-    @foreach($students as $s)
-    <tr>
-        <td>{{ $s->id }}</td>
-        <td>{{ $s->name }}</td>
-        <td>{{ $s->email }}</td>
-    </tr>
-    @endforeach
-</table>
+    @if(!empty($search))
+
+        <div class="subtitle">
+            Search Results For:
+            <strong>{{ $search }}</strong>
+        </div>
+
+    @else
+
+        <div class="subtitle">
+            Student Data Report
+        </div>
+
+    @endif
+
+
+    <div class="summary">
+
+        <strong>Total Students:</strong>
+        {{ $students->count() }}
+
+        &nbsp;&nbsp;&nbsp;
+
+        <strong>Generated:</strong>
+        {{ now()->format('d M Y, h:i A') }}
+
+    </div>
+
+
+    <table>
+
+        <thead>
+
+        <tr>
+
+            <th>ID</th>
+
+            <th>Name</th>
+
+            <th>Email</th>
+
+            <th>Created At</th>
+
+        </tr>
+
+        </thead>
+
+
+        <tbody>
+
+        @forelse($students as $s)
+
+            <tr>
+
+                <td>
+                    {{ $s->id }}
+                </td>
+
+                <td>
+                    {{ $s->name }}
+                </td>
+
+                <td>
+                    {{ $s->email }}
+                </td>
+
+                <td>
+                    {{ $s->created_at->format('d M Y, h:i A') }}
+                </td>
+
+            </tr>
+
+        @empty
+
+            <tr>
+
+                <td colspan="4">
+                    No students found.
+                </td>
+
+            </tr>
+
+        @endforelse
+
+        </tbody>
+
+    </table>
 
 </body>
+
 </html>

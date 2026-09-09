@@ -8,15 +8,93 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class StudentsExport implements FromCollection, WithHeadings
 {
-    // Fetch data for CSV export
-    public function collection()
-    {
-        return Student::select('id','name','email','created_at')->get();
+    protected array $studentIds;
+
+    protected string $search;
+
+    /*
+    |--------------------------------------------------------------------------
+    | Constructor
+    |--------------------------------------------------------------------------
+    */
+
+    public function __construct(
+        array $studentIds = [],
+        string $search = ''
+    ) {
+        $this->studentIds = $studentIds;
+        $this->search = $search;
     }
 
-    // Define CSV column headings
+
+    /*
+    |--------------------------------------------------------------------------
+    | Get Collection
+    |--------------------------------------------------------------------------
+    */
+
+    public function collection()
+    {
+        $query = Student::query();
+
+        /*
+        |--------------------------------------------------------------------------
+        | Selected Students
+        |--------------------------------------------------------------------------
+        */
+
+        if (!empty($this->studentIds)) {
+            $query->whereIn('id', $this->studentIds);
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Search Filter
+        |--------------------------------------------------------------------------
+        */
+
+        if (!empty($this->search)) {
+            $query->where(function ($q) {
+                $q->where(
+                    'name',
+                    'like',
+                    '%' . $this->search . '%'
+                )
+                ->orWhere(
+                    'email',
+                    'like',
+                    '%' . $this->search . '%'
+                );
+            });
+        }
+
+
+        return $query
+            ->select(
+                'id',
+                'name',
+                'email',
+                'created_at'
+            )
+            ->orderBy('id', 'asc')
+            ->get();
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | CSV Headings
+    |--------------------------------------------------------------------------
+    */
+
     public function headings(): array
     {
-        return ['ID','Name','Email','Created At'];
+        return [
+            'ID',
+            'Name',
+            'Email',
+            'Created At'
+        ];
     }
 }
