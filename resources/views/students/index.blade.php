@@ -7,17 +7,16 @@
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0">
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Student Data Management</title>
-
 
     <style>
 
         * {
             box-sizing: border-box;
         }
-
 
         body {
             font-family: Arial, sans-serif;
@@ -27,35 +26,26 @@
             color: #333;
         }
 
-
         .container {
-            max-width: 1150px;
+            max-width: 1250px;
             margin: auto;
             background: #fff;
             padding: 25px;
             border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 15px rgba(0,0,0,.08);
         }
-
 
         h2 {
             margin-top: 0;
-            margin-bottom: 25px;
             color: #1f2937;
         }
 
-
-        /* =====================================================
-           Statistics
-        ===================================================== */
-
         .stats {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             gap: 15px;
             margin-bottom: 25px;
         }
-
 
         .stat-card {
             padding: 18px;
@@ -64,31 +54,16 @@
             border: 1px solid #e5e7eb;
         }
 
-
         .stat-title {
             font-size: 13px;
             color: #64748b;
             margin-bottom: 8px;
         }
 
-
         .stat-value {
-            font-size: 25px;
+            font-size: 24px;
             font-weight: bold;
-            color: #1e293b;
         }
-
-
-        .latest-name {
-            font-size: 18px;
-            font-weight: bold;
-            word-break: break-word;
-        }
-
-
-        /* =====================================================
-           Alerts
-        ===================================================== */
 
         .alert {
             padding: 12px 15px;
@@ -96,79 +71,73 @@
             margin-bottom: 20px;
         }
 
-
         .success {
             background: #dcfce7;
             color: #166534;
             border: 1px solid #bbf7d0;
         }
 
-
         .error {
             background: #fee2e2;
             color: #991b1b;
-            border: 1px solid #fecaca;
         }
-
-
-        .error ul {
-            margin: 5px 0 0 20px;
-        }
-
-
-        /* =====================================================
-           Add Student
-        ===================================================== */
 
         .add-form {
             display: grid;
             grid-template-columns: 1fr 1fr auto;
             gap: 10px;
             margin-bottom: 20px;
-            align-items: center;
         }
 
-
-        .add-form input {
-            width: 100%;
-            padding: 11px 12px;
+        input,
+        select {
+            padding: 10px;
             border: 1px solid #cbd5e1;
             border-radius: 5px;
             font-size: 14px;
-            outline: none;
         }
 
-
-        .add-form input:focus {
-            border-color: #2563eb;
-        }
-
-
-        .add-form button {
-            width: auto;
-            min-width: 130px;
-            padding: 11px 18px;
-            background: #2563eb;
-            color: #fff;
+        button,
+        .btn {
             border: none;
+            color: white;
             border-radius: 5px;
             cursor: pointer;
+            padding: 10px 14px;
+            text-decoration: none;
+            display: inline-block;
             font-size: 14px;
-            font-weight: 600;
-            white-space: nowrap;
         }
 
-
-        .add-form button:hover {
-            background: #1d4ed8;
+        .primary {
+            background: #2563eb;
         }
 
+        .green {
+            background: #16a34a;
+        }
 
-        /* =====================================================
-           Search
-        ===================================================== */
+        .red {
+            background: #dc2626;
+        }
 
-        .search-section {
+        .orange {
+            background: #f59e0b;
+        }
+
+        .gray {
+            background: #64748b;
+        }
+
+        .dark-red {
+            background: #7f1d1d;
+        }
+
+        .purple {
+            background: #7c3aed;
+        }
+
+        .filter-section {
             padding: 15px;
             background: #f8fafc;
             border: 1px solid #e2e8f0;
@@ -176,133 +145,30 @@
             margin-bottom: 20px;
         }
 
-
-        .search-form {
-            display: flex;
+        .filter-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
             gap: 10px;
+            align-items: end;
         }
 
-
-        .search-form input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #cbd5e1;
-            border-radius: 5px;
-        }
-
-
-        .search-btn {
-            background: #2563eb;
-            padding: 10px 16px;
-        }
-
-
-        .search-btn:hover {
-            background: #1d4ed8;
-        }
-
-
-        .clear-btn {
-            background: #64748b;
-            text-decoration: none;
-            color: white;
-            padding: 10px 16px;
-            border-radius: 5px;
-        }
-
-
-        .clear-btn:hover {
-            background: #475569;
-        }
-
-
-        /* =====================================================
-           Buttons
-        ===================================================== */
-
-        button {
-            border: none;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-
-        button:hover {
-            opacity: 0.9;
-        }
-
-
-        .csv {
-            background: #16a34a;
-        }
-
-
-        .pdf {
-            background: #dc2626;
-        }
-
-
-        .selected-csv {
-            background: #15803d;
-        }
-
-
-        .selected-pdf {
-            background: #b91c1c;
-        }
-
-
-        .edit-btn {
-            background: #f59e0b;
-            padding: 7px 11px;
+        .field label {
+            display: block;
             font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 5px;
         }
 
-
-        .edit-btn:hover {
-            background: #d97706;
+        .filter-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            flex-wrap: wrap;
         }
-
-
-        .delete-btn {
-            background: #dc2626;
-            padding: 7px 11px;
-            font-size: 13px;
-        }
-
-
-        .delete-btn:hover {
-            background: #991b1b;
-        }
-
-
-        .bulk-delete-btn {
-            background: #7f1d1d;
-            padding: 9px 14px;
-            font-size: 14px;
-        }
-
-
-        .bulk-delete-btn:hover {
-            background: #450a0a;
-        }
-
-
-        /* =====================================================
-           Export Section
-        ===================================================== */
 
         .export-section {
             margin-bottom: 20px;
         }
-
-
-        .export-title {
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
 
         .export-buttons {
             display: flex;
@@ -310,101 +176,96 @@
             flex-wrap: wrap;
         }
 
-
-        .export-buttons a,
-        .export-buttons button {
-            text-decoration: none;
-            padding: 9px 14px;
-            font-size: 14px;
-        }
-
-
-        .selected-count {
-            margin-top: 10px;
-            font-size: 14px;
-            color: #475569;
-        }
-
-
-        /* =====================================================
-           Bulk Actions
-        ===================================================== */
-
-        .bulk-action-section {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 15px;
-            padding: 12px 15px;
-            margin-bottom: 15px;
-            background: #fff7ed;
-            border: 1px solid #fed7aa;
-            border-radius: 7px;
-        }
-
-
-        .bulk-info {
-            color: #9a3412;
-            font-size: 14px;
-        }
-
-
-        /* =====================================================
-           Table
-        ===================================================== */
-
         .table-wrapper {
             overflow-x: auto;
         }
-
 
         table {
             width: 100%;
             border-collapse: collapse;
         }
 
-
-        table th,
-        table td {
+        th,
+        td {
             border: 1px solid #e2e8f0;
             padding: 11px;
             text-align: left;
         }
 
-
-        table th {
+        th {
             background: #f1f5f9;
-            font-weight: bold;
         }
 
-
-        table tr:nth-child(even) {
+        tr:nth-child(even) {
             background: #f8fafc;
         }
 
-
-        table tr:hover {
-            background: #f1f5f9;
+        .sort-link {
+            color: #1e293b;
+            text-decoration: none;
         }
 
+        .badge {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .active {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .inactive {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
 
         .checkbox {
             width: 18px;
             height: 18px;
-            cursor: pointer;
         }
 
-
-        .action-buttons {
+        .pagination {
+            margin-top: 20px;
             display: flex;
             gap: 6px;
             flex-wrap: wrap;
         }
 
+        .pagination a,
+        .pagination span {
+            padding: 8px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #334155;
+        }
 
-        /* =====================================================
-           Empty State
-        ===================================================== */
+        .pagination .active-page {
+            background: #2563eb;
+            color: white;
+        }
+
+        .bulk-section {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin: 15px 0;
+            padding: 12px;
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+            border-radius: 7px;
+            flex-wrap: wrap;
+        }
 
         .empty {
             text-align: center;
@@ -412,193 +273,86 @@
             color: #64748b;
         }
 
-
-        /* =====================================================
-           Edit Modal
-        ===================================================== */
-
         .modal {
             display: none;
             position: fixed;
+            inset: 0;
+            background: rgba(15,23,42,.6);
             z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(15, 23, 42, 0.6);
             padding: 20px;
         }
 
-
         .modal-content {
-            width: 100%;
             max-width: 500px;
-            background: #fff;
-            margin: 7% auto;
+            margin: 8% auto;
+            background: white;
             padding: 25px;
             border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-
-        .modal-header h3 {
-            margin: 0;
-            color: #1f2937;
-        }
-
-
-        .close-btn {
-            background: transparent;
-            color: #64748b;
-            font-size: 25px;
-            padding: 0;
-        }
-
-
-        .close-btn:hover {
-            color: #dc2626;
-        }
-
-
-        .edit-form-group {
+        .modal-content input {
+            width: 100%;
             margin-bottom: 15px;
         }
 
-
-        .edit-form-group label {
+        .modal-content label {
             display: block;
-            margin-bottom: 6px;
-            font-size: 14px;
             font-weight: bold;
-            color: #334155;
+            margin-bottom: 5px;
         }
 
-
-        .edit-form-group input {
-            width: 100%;
-            padding: 11px;
-            border: 1px solid #cbd5e1;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-
-
-        .edit-form-group input:focus {
-            outline: none;
-            border-color: #2563eb;
-        }
-
-
-        .update-btn {
-            width: 100%;
-            background: #2563eb;
-            padding: 11px;
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-
-        .update-btn:hover {
-            background: #1d4ed8;
-        }
-
-
-        /* =====================================================
-           Responsive
-        ===================================================== */
-
-        @media (max-width: 850px) {
+        @media(max-width:1000px) {
 
             .stats {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(2,1fr);
             }
 
-
-            .add-form {
-                grid-template-columns: 1fr;
-            }
-
-
-            .add-form button {
-                width: 100%;
-            }
-
-
-            .search-form {
-                flex-direction: column;
-            }
-
-
-            .search-form button,
-            .clear-btn {
-                width: 100%;
-                text-align: center;
-            }
-
-
-            .bulk-action-section {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-
-            .bulk-delete-btn {
-                width: 100%;
+            .filter-grid {
+                grid-template-columns: 1fr 1fr;
             }
 
         }
 
-
-        @media (max-width: 500px) {
+        @media(max-width:600px) {
 
             body {
                 padding: 15px;
             }
 
-
             .container {
                 padding: 15px;
             }
-
 
             .stats {
                 grid-template-columns: 1fr;
             }
 
-
-            .export-buttons {
-                flex-direction: column;
+            .add-form,
+            .filter-grid {
+                grid-template-columns: 1fr;
             }
 
-
-            .export-buttons a,
-            .export-buttons button {
-                width: 100%;
-                text-align: center;
-            }
-
-
+            .export-buttons,
             .action-buttons {
                 flex-direction: column;
             }
 
+        }
 
-            .action-buttons button,
-            .action-buttons form {
-                width: 100%;
+        @media print {
+
+            .no-print {
+                display: none !important;
             }
 
+            body {
+                background: white;
+                padding: 0;
+            }
 
-            .action-buttons form button {
-                width: 100%;
+            .container {
+                box-shadow: none;
+                max-width: 100%;
             }
 
         }
@@ -607,19 +361,11 @@
 
 </head>
 
-
 <body>
-
 
 <div class="container">
 
-
     <h2>🎓 Student Data Management</h2>
-
-
-    <!-- =====================================================
-         Success Message
-    ====================================================== -->
 
     @if(session('success'))
 
@@ -629,24 +375,17 @@
 
     @endif
 
-
-    <!-- =====================================================
-         Validation Errors
-    ====================================================== -->
-
     @if($errors->any())
 
         <div class="alert error">
 
-            <strong>Please fix the following errors:</strong>
+            <strong>Please fix the following:</strong>
 
             <ul>
 
                 @foreach($errors->all() as $error)
 
-                    <li>
-                        {{ $error }}
-                    </li>
+                    <li>{{ $error }}</li>
 
                 @endforeach
 
@@ -663,7 +402,6 @@
 
     <div class="stats">
 
-
         <div class="stat-card">
 
             <div class="stat-title">
@@ -676,6 +414,29 @@
 
         </div>
 
+        <div class="stat-card">
+
+            <div class="stat-title">
+                Active
+            </div>
+
+            <div class="stat-value">
+                {{ $activeStudents }}
+            </div>
+
+        </div>
+
+        <div class="stat-card">
+
+            <div class="stat-title">
+                Inactive
+            </div>
+
+            <div class="stat-value">
+                {{ $inactiveStudents }}
+            </div>
+
+        </div>
 
         <div class="stat-card">
 
@@ -689,11 +450,10 @@
 
         </div>
 
-
         <div class="stat-card">
 
             <div class="stat-title">
-                Added This Week
+                This Week
             </div>
 
             <div class="stat-value">
@@ -701,30 +461,6 @@
             </div>
 
         </div>
-
-
-        <div class="stat-card">
-
-            <div class="stat-title">
-                Latest Student
-            </div>
-
-            @if($latestStudent)
-
-                <div class="latest-name">
-                    {{ $latestStudent->name }}
-                </div>
-
-            @else
-
-                <div class="latest-name">
-                    No students
-                </div>
-
-            @endif
-
-        </div>
-
 
     </div>
 
@@ -736,7 +472,8 @@
     <form
         method="POST"
         action="{{ route('students.store') }}"
-        class="add-form">
+        class="add-form no-print"
+    >
 
         @csrf
 
@@ -745,18 +482,21 @@
             name="name"
             placeholder="Student Name"
             value="{{ old('name') }}"
-            required>
-
+            required
+        >
 
         <input
             type="email"
             name="email"
             placeholder="Student Email"
             value="{{ old('email') }}"
-            required>
+            required
+        >
 
-
-        <button type="submit">
+        <button
+            type="submit"
+            class="primary"
+        >
             ➕ Add Student
         </button>
 
@@ -764,63 +504,138 @@
 
 
     <!-- =====================================================
-         Search
+         Filters
     ====================================================== -->
 
-    <div class="search-section">
+    <div class="filter-section no-print">
 
-        <div class="export-title">
-            🔎 Search Students
-        </div>
-
+        <strong>🔎 Student Filters</strong>
 
         <form
             method="GET"
             action="{{ route('students.index') }}"
-            class="search-form">
+        >
 
-            <input
-                type="text"
-                name="search"
-                value="{{ $search }}"
-                placeholder="Search by name or email...">
+            <div class="filter-grid">
 
+                <div class="field">
 
-            <button
-                type="submit"
-                class="search-btn">
+                    <label>
+                        Search
+                    </label>
 
-                Search
+                    <input
+                        type="text"
+                        name="search"
+                        value="{{ $search }}"
+                        placeholder="ID, name or email"
+                    >
 
-            </button>
+                </div>
 
+                <div class="field">
 
-            @if(!empty($search))
+                    <label>
+                        Status
+                    </label>
 
-                <a
-                    href="{{ route('students.index') }}"
-                    class="clear-btn">
+                    <select name="status">
 
-                    Clear
+                        <option value="">
+                            All
+                        </option>
 
-                </a>
+                        <option
+                            value="active"
+                            {{ $status === 'active' ? 'selected' : '' }}
+                        >
+                            Active
+                        </option>
 
-            @endif
+                        <option
+                            value="inactive"
+                            {{ $status === 'inactive' ? 'selected' : '' }}
+                        >
+                            Inactive
+                        </option>
 
-        </form>
+                    </select>
 
+                </div>
 
-        @if(!empty($search))
+                <div class="field">
 
-            <div class="selected-count">
+                    <label>
+                        From Date
+                    </label>
 
-                Search results for
-                <strong>"{{ $search }}"</strong>:
-                {{ $students->count() }} student(s)
+                    <input
+                        type="date"
+                        name="from_date"
+                        value="{{ $fromDate }}"
+                    >
+
+                </div>
+
+                <div class="field">
+
+                    <label>
+                        To Date
+                    </label>
+
+                    <input
+                        type="date"
+                        name="to_date"
+                        value="{{ $toDate }}"
+                    >
+
+                </div>
+
+                <div class="field">
+
+                    <label>
+                        Per Page
+                    </label>
+
+                    <select name="per_page">
+
+                        @foreach([5,10,25,50] as $number)
+
+                            <option
+                                value="{{ $number }}"
+                                {{ $perPage == $number ? 'selected' : '' }}
+                            >
+                                {{ $number }}
+                            </option>
+
+                        @endforeach
+
+                    </select>
+
+                </div>
 
             </div>
 
-        @endif
+
+            <div class="filter-actions">
+
+                <button
+                    type="submit"
+                    class="primary"
+                >
+                    🔍 Apply Filters
+                </button>
+
+                <a
+                    href="{{ route('students.index') }}"
+                    class="btn gray"
+                >
+                    ✖ Clear Filters
+                </a>
+
+            </div>
+
+        </form>
 
     </div>
 
@@ -829,68 +644,59 @@
          Export
     ====================================================== -->
 
-    <div class="export-section">
+    <div class="export-section no-print">
 
-        <div class="export-title">
-            📥 Export Data
-        </div>
-
+        <strong>📥 Export / Report</strong>
 
         <div class="export-buttons">
 
-
             <a
-                href="{{ route('students.csv', ['search' => $search]) }}"
-                class="csv">
-
-                ⬇ Export
-                {{ !empty($search) ? 'Filtered ' : '' }}
-                CSV
-
+                class="btn green"
+                href="{{ route('students.csv', request()->query()) }}"
+            >
+                ⬇ CSV
             </a>
 
-
             <a
-                href="{{ route('students.pdf', ['search' => $search]) }}"
-                class="pdf">
-
-                📄 Export
-                {{ !empty($search) ? 'Filtered ' : '' }}
-                PDF
-
+                class="btn red"
+                href="{{ route('students.pdf', request()->query()) }}"
+            >
+                📄 PDF
             </a>
 
+            <a
+                class="btn purple"
+                target="_blank"
+                href="{{ route('students.print', request()->query()) }}"
+            >
+                🖨 Print
+            </a>
 
             <button
                 type="submit"
                 form="selected-export-form"
                 name="export_type"
                 value="csv"
-                class="selected-csv">
-
-                ☑ Export Selected CSV
-
+                class="green"
+            >
+                ☑ Selected CSV
             </button>
-
 
             <button
                 type="submit"
                 form="selected-export-form"
                 name="export_type"
                 value="pdf"
-                class="selected-pdf">
-
-                ☑ Export Selected PDF
-
+                class="red"
+            >
+                ☑ Selected PDF
             </button>
-
 
         </div>
 
+        <div style="margin-top:10px">
 
-        <div class="selected-count">
-
-            Selected Students:
+            Selected:
             <strong id="selectedCount">0</strong>
 
         </div>
@@ -899,24 +705,59 @@
 
 
     <!-- =====================================================
-         Bulk Delete
+         Bulk Status + Delete
     ====================================================== -->
 
-    <div class="bulk-action-section">
+    <div class="bulk-section no-print">
 
-        <div class="bulk-info">
+        <strong>
+            Selected:
+            <span id="bulkSelectedCount">0</span>
+        </strong>
 
-            🗑️
-            <strong id="bulkSelectedCount">0</strong>
-            student(s) selected for bulk action.
 
-        </div>
+        <form
+            method="POST"
+            action="{{ route('students.bulkStatus') }}"
+            id="bulk-status-form"
+        >
+
+            @csrf
+
+            @method('PUT')
+
+            <div id="bulkStatusInputs"></div>
+
+            <input
+                type="hidden"
+                name="status"
+                id="bulkStatusValue"
+            >
+
+            <button
+                type="button"
+                class="btn green"
+                onclick="bulkStatus('active')"
+            >
+                🟢 Activate
+            </button>
+
+            <button
+                type="button"
+                class="btn orange"
+                onclick="bulkStatus('inactive')"
+            >
+                🔴 Deactivate
+            </button>
+
+        </form>
 
 
         <form
             method="POST"
             action="{{ route('students.bulkDelete') }}"
-            id="bulk-delete-form">
+            id="bulk-delete-form"
+        >
 
             @csrf
 
@@ -924,13 +765,11 @@
 
             <div id="bulkDeleteInputs"></div>
 
-
             <button
                 type="submit"
-                class="bulk-delete-btn">
-
-                🗑 Delete Selected Students
-
+                class="btn dark-red"
+            >
+                🗑 Bulk Delete
             </button>
 
         </form>
@@ -944,7 +783,8 @@
 
     <form
         method="POST"
-        id="selected-export-form">
+        id="selected-export-form"
+    >
 
         @csrf
 
@@ -954,7 +794,7 @@
 
 
     <!-- =====================================================
-         Students Table
+         Student Table
     ====================================================== -->
 
     <div class="table-wrapper">
@@ -965,24 +805,112 @@
 
             <tr>
 
-                <th style="width: 50px;">
+                <th class="no-print">
 
                     <input
                         type="checkbox"
                         id="selectAll"
-                        class="checkbox">
+                        class="checkbox"
+                    >
 
                 </th>
 
-                <th>ID</th>
+                <th>
 
-                <th>Name</th>
+                    <a
+                        class="sort-link"
+                        href="{{ route('students.index', array_merge(request()->query(), [
+                            'sort' => 'id',
+                            'direction' => ($sort === 'id' && $direction === 'asc') ? 'desc' : 'asc'
+                        ])) }}"
+                    >
+                        ID
+                        @if($sort === 'id')
+                            {{ $direction === 'asc' ? '↑' : '↓' }}
+                        @endif
+                    </a>
 
-                <th>Email</th>
+                </th>
 
-                <th>Created At</th>
+                <th>
 
-                <th>Action</th>
+                    <a
+                        class="sort-link"
+                        href="{{ route('students.index', array_merge(request()->query(), [
+                            'sort' => 'name',
+                            'direction' => ($sort === 'name' && $direction === 'asc') ? 'desc' : 'asc'
+                        ])) }}"
+                    >
+                        Name
+
+                        @if($sort === 'name')
+                            {{ $direction === 'asc' ? '↑' : '↓' }}
+                        @endif
+
+                    </a>
+
+                </th>
+
+                <th>
+
+                    <a
+                        class="sort-link"
+                        href="{{ route('students.index', array_merge(request()->query(), [
+                            'sort' => 'email',
+                            'direction' => ($sort === 'email' && $direction === 'asc') ? 'desc' : 'asc'
+                        ])) }}"
+                    >
+                        Email
+
+                        @if($sort === 'email')
+                            {{ $direction === 'asc' ? '↑' : '↓' }}
+                        @endif
+
+                    </a>
+
+                </th>
+
+                <th>
+
+                    <a
+                        class="sort-link"
+                        href="{{ route('students.index', array_merge(request()->query(), [
+                            'sort' => 'status',
+                            'direction' => ($sort === 'status' && $direction === 'asc') ? 'desc' : 'asc'
+                        ])) }}"
+                    >
+                        Status
+
+                        @if($sort === 'status')
+                            {{ $direction === 'asc' ? '↑' : '↓' }}
+                        @endif
+
+                    </a>
+
+                </th>
+
+                <th>
+
+                    <a
+                        class="sort-link"
+                        href="{{ route('students.index', array_merge(request()->query(), [
+                            'sort' => 'created_at',
+                            'direction' => ($sort === 'created_at' && $direction === 'asc') ? 'desc' : 'asc'
+                        ])) }}"
+                    >
+                        Created At
+
+                        @if($sort === 'created_at')
+                            {{ $direction === 'asc' ? '↑' : '↓' }}
+                        @endif
+
+                    </a>
+
+                </th>
+
+                <th class="no-print">
+                    Action
+                </th>
 
             </tr>
 
@@ -991,62 +919,90 @@
 
             <tbody>
 
-
             @forelse($students as $s)
-
 
                 <tr>
 
-
-                    <td>
+                    <td class="no-print">
 
                         <input
                             type="checkbox"
                             class="student-checkbox checkbox"
-                            value="{{ $s->id }}">
+                            value="{{ $s->id }}"
+                        >
 
                     </td>
-
 
                     <td>
                         {{ $s->id }}
                     </td>
 
-
                     <td>
                         {{ $s->name }}
                     </td>
-
 
                     <td>
                         {{ $s->email }}
                     </td>
 
+                    <td>
+
+                        <span
+                            class="badge {{ $s->status === 'active' ? 'active' : 'inactive' }}"
+                        >
+                            {{ ucfirst($s->status) }}
+                        </span>
+
+                    </td>
 
                     <td>
                         {{ $s->created_at->format('d M Y, h:i A') }}
                     </td>
 
-
-                    <td>
+                    <td class="no-print">
 
                         <div class="action-buttons">
-
 
                             <!-- Edit -->
 
                             <button
                                 type="button"
-                                class="edit-btn"
+                                class="orange"
                                 onclick="openEditModal(
                                     {{ $s->id }},
                                     @js($s->name),
                                     @js($s->email)
-                                )">
-
-                                ✏️ Edit
-
+                                )"
+                            >
+                                ✏ Edit
                             </button>
+
+
+                            <!-- Status -->
+
+                            <form
+                                method="POST"
+                                action="{{ route('students.status', $s->id) }}"
+                            >
+
+                                @csrf
+
+                                @method('PUT')
+
+                                <input
+                                    type="hidden"
+                                    name="status"
+                                    value="{{ $s->status === 'active' ? 'inactive' : 'active' }}"
+                                >
+
+                                <button
+                                    type="submit"
+                                    class="{{ $s->status === 'active' ? 'orange' : 'green' }}"
+                                >
+                                    {{ $s->status === 'active' ? 'Deactivate' : 'Activate' }}
+                                </button>
+
+                            </form>
 
 
                             <!-- Delete -->
@@ -1054,63 +1010,42 @@
                             <form
                                 method="POST"
                                 action="{{ route('students.delete', $s->id) }}"
-                                onsubmit="return confirm(
-                                    'Are you sure you want to delete this student?'
-                                );">
+                                onsubmit="return confirm('Delete this student?')"
+                            >
 
                                 @csrf
 
                                 @method('DELETE')
 
-
                                 <button
                                     type="submit"
-                                    class="delete-btn">
-
+                                    class="red"
+                                >
                                     🗑 Delete
-
                                 </button>
 
                             </form>
-
 
                         </div>
 
                     </td>
 
-
                 </tr>
 
-
             @empty
-
 
                 <tr>
 
                     <td
-                        colspan="6"
-                        class="empty">
-
-
-                        @if(!empty($search))
-
-                            🔎 No students found for
-                            <strong>"{{ $search }}"</strong>.
-
-                        @else
-
-                            🎓 No students available.
-
-                        @endif
-
-
+                        colspan="7"
+                        class="empty"
+                    >
+                        🎓 No students found.
                     </td>
 
                 </tr>
 
-
             @endforelse
-
 
             </tbody>
 
@@ -1119,87 +1054,144 @@
     </div>
 
 
+    <!-- =====================================================
+         Pagination
+    ====================================================== -->
+
+    <div class="pagination no-print">
+
+        @if($students->onFirstPage())
+
+            <span>
+                Previous
+            </span>
+
+        @else
+
+            <a href="{{ $students->previousPageUrl() }}">
+                Previous
+            </a>
+
+        @endif
+
+
+        @foreach($students->getUrlRange(
+            max(1, $students->currentPage() - 2),
+            min($students->lastPage(), $students->currentPage() + 2)
+        ) as $page => $url)
+
+            @if($page == $students->currentPage())
+
+                <span class="active-page">
+                    {{ $page }}
+                </span>
+
+            @else
+
+                <a href="{{ $url }}">
+                    {{ $page }}
+                </a>
+
+            @endif
+
+        @endforeach
+
+
+        @if($students->hasMorePages())
+
+            <a href="{{ $students->nextPageUrl() }}">
+                Next
+            </a>
+
+        @else
+
+            <span>
+                Next
+            </span>
+
+        @endif
+
+    </div>
+
+
+    <div
+        style="margin-top:10px"
+        class="no-print"
+    >
+
+        Showing
+        <strong>{{ $students->firstItem() ?? 0 }}</strong>
+        -
+        <strong>{{ $students->lastItem() ?? 0 }}</strong>
+        of
+        <strong>{{ $students->total() }}</strong>
+        students
+
+    </div>
+
 </div>
 
 
 <!-- =========================================================
-     Edit Student Modal
+     Edit Modal
 ========================================================= -->
 
 <div
     id="editModal"
-    class="modal">
-
+    class="modal"
+>
 
     <div class="modal-content">
 
-
-        <div class="modal-header">
-
-            <h3>
-                ✏️ Edit Student
-            </h3>
-
-
-            <button
-                type="button"
-                class="close-btn"
-                onclick="closeEditModal()">
-
-                &times;
-
-            </button>
-
-        </div>
-
+        <h3>
+            ✏ Edit Student
+        </h3>
 
         <form
             method="POST"
-            id="editStudentForm">
+            id="editStudentForm"
+        >
 
             @csrf
 
             @method('PUT')
 
+            <label>
+                Name
+            </label>
 
-            <div class="edit-form-group">
+            <input
+                type="text"
+                name="name"
+                id="editName"
+                required
+            >
 
-                <label>
-                    Student Name
-                </label>
+            <label>
+                Email
+            </label>
 
-                <input
-                    type="text"
-                    name="name"
-                    id="editName"
-                    required>
-
-            </div>
-
-
-            <div class="edit-form-group">
-
-                <label>
-                    Student Email
-                </label>
-
-                <input
-                    type="email"
-                    name="email"
-                    id="editEmail"
-                    required>
-
-            </div>
-
+            <input
+                type="email"
+                name="email"
+                id="editEmail"
+                required
+            >
 
             <button
                 type="submit"
-                class="update-btn">
-
-                💾 Update Student
-
+                class="primary"
+            >
+                💾 Update
             </button>
 
+            <button
+                type="button"
+                class="gray"
+                onclick="closeEditModal()"
+            >
+                Cancel
+            </button>
 
         </form>
 
@@ -1208,18 +1200,7 @@
 </div>
 
 
-<!-- =========================================================
-     JavaScript
-========================================================= -->
-
 <script>
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | Selection Elements
-    |--------------------------------------------------------------------------
-    */
 
     const selectAll =
         document.getElementById('selectAll');
@@ -1239,16 +1220,19 @@
     const bulkDeleteInputs =
         document.getElementById('bulkDeleteInputs');
 
+    const bulkStatusInputs =
+        document.getElementById('bulkStatusInputs');
+
+    const bulkStatusValue =
+        document.getElementById('bulkStatusValue');
+
     const exportForm =
         document.getElementById('selected-export-form');
-
-    const bulkDeleteForm =
-        document.getElementById('bulk-delete-form');
 
 
     /*
     |--------------------------------------------------------------------------
-    | Get Selected Students
+    | Get Selected IDs
     |--------------------------------------------------------------------------
     */
 
@@ -1258,17 +1242,15 @@
             document.querySelectorAll(
                 '.student-checkbox:checked'
             )
-        ).map(function (checkbox) {
-
-            return checkbox.value;
-
-        });
+        ).map(
+            checkbox => checkbox.value
+        );
     }
 
 
     /*
     |--------------------------------------------------------------------------
-    | Update Selection Count
+    | Update Counts
     |--------------------------------------------------------------------------
     */
 
@@ -1277,20 +1259,11 @@
         const selected =
             getSelectedStudents();
 
-
         selectedCount.textContent =
             selected.length;
 
-
         bulkSelectedCount.textContent =
             selected.length;
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Select All State
-        |--------------------------------------------------------------------------
-        */
 
         if (checkboxes.length > 0) {
 
@@ -1316,29 +1289,25 @@
         function () {
 
             checkboxes.forEach(
-                function (checkbox) {
-
+                checkbox => {
                     checkbox.checked =
                         selectAll.checked;
-
                 }
             );
 
-
             updateSelectedCount();
-
         }
     );
 
 
     /*
     |--------------------------------------------------------------------------
-    | Individual Checkbox
+    | Individual Selection
     |--------------------------------------------------------------------------
     */
 
     checkboxes.forEach(
-        function (checkbox) {
+        checkbox => {
 
             checkbox.addEventListener(
                 'change',
@@ -1351,7 +1320,7 @@
 
     /*
     |--------------------------------------------------------------------------
-    | Selected CSV/PDF Export
+    | Selected Export
     |--------------------------------------------------------------------------
     */
 
@@ -1359,33 +1328,22 @@
         'submit',
         function (event) {
 
-
             const selected =
                 getSelectedStudents();
-
 
             if (selected.length === 0) {
 
                 event.preventDefault();
 
                 alert(
-                    'Please select at least one student to export.'
+                    'Please select at least one student.'
                 );
 
                 return;
-
             }
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | Export Type
-            |--------------------------------------------------------------------------
-            */
 
             const exportType =
                 event.submitter.value;
-
 
             if (exportType === 'csv') {
 
@@ -1399,24 +1357,10 @@
 
             }
 
-
-            /*
-            |--------------------------------------------------------------------------
-            | Clear Existing Inputs
-            |--------------------------------------------------------------------------
-            */
-
             selectedInputs.innerHTML = '';
 
-
-            /*
-            |--------------------------------------------------------------------------
-            | Add Selected IDs
-            |--------------------------------------------------------------------------
-            */
-
             selected.forEach(
-                function (id) {
+                id => {
 
                     const input =
                         document.createElement('input');
@@ -1438,100 +1382,130 @@
 
     /*
     |--------------------------------------------------------------------------
-    | Bulk Delete
+    | Bulk Status
     |--------------------------------------------------------------------------
     */
 
-    bulkDeleteForm.addEventListener(
-        'submit',
-        function (event) {
+    function bulkStatus(status)
+    {
+        const selected =
+            getSelectedStudents();
 
+        if (selected.length === 0) {
 
-            const selected =
-                getSelectedStudents();
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | Nothing Selected
-            |--------------------------------------------------------------------------
-            */
-
-            if (selected.length === 0) {
-
-                event.preventDefault();
-
-                alert(
-                    'Please select at least one student to delete.'
-                );
-
-                return;
-
-            }
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | Confirmation
-            |--------------------------------------------------------------------------
-            */
-
-            const confirmed =
-                confirm(
-                    'Are you sure you want to delete ' +
-                    selected.length +
-                    ' selected student(s)? This action cannot be undone.'
-                );
-
-
-            if (!confirmed) {
-
-                event.preventDefault();
-
-                return;
-
-            }
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | Remove Old Inputs
-            |--------------------------------------------------------------------------
-            */
-
-            bulkDeleteInputs.innerHTML = '';
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | Add Student IDs
-            |--------------------------------------------------------------------------
-            */
-
-            selected.forEach(
-                function (id) {
-
-                    const input =
-                        document.createElement('input');
-
-                    input.type = 'hidden';
-
-                    input.name = 'student_ids[]';
-
-                    input.value = id;
-
-                    bulkDeleteInputs.appendChild(input);
-
-                }
+            alert(
+                'Please select at least one student.'
             );
 
+            return;
         }
-    );
+
+        const action =
+            status === 'active'
+                ? 'activate'
+                : 'deactivate';
+
+        if (!confirm(
+            'Are you sure you want to ' +
+            action +
+            ' ' +
+            selected.length +
+            ' student(s)?'
+        )) {
+            return;
+        }
+
+        bulkStatusInputs.innerHTML = '';
+
+        selected.forEach(
+            id => {
+
+                const input =
+                    document.createElement('input');
+
+                input.type = 'hidden';
+
+                input.name = 'student_ids[]';
+
+                input.value = id;
+
+                bulkStatusInputs.appendChild(input);
+
+            }
+        );
+
+        bulkStatusValue.value =
+            status;
+
+        document
+            .getElementById('bulk-status-form')
+            .submit();
+    }
 
 
     /*
     |--------------------------------------------------------------------------
-    | Edit Student Modal
+    | Bulk Delete
+    |--------------------------------------------------------------------------
+    */
+
+    document
+        .getElementById('bulk-delete-form')
+        .addEventListener(
+            'submit',
+            function (event) {
+
+                const selected =
+                    getSelectedStudents();
+
+                if (selected.length === 0) {
+
+                    event.preventDefault();
+
+                    alert(
+                        'Please select at least one student.'
+                    );
+
+                    return;
+                }
+
+                if (!confirm(
+                    'Delete ' +
+                    selected.length +
+                    ' selected student(s)?'
+                )) {
+
+                    event.preventDefault();
+
+                    return;
+                }
+
+                bulkDeleteInputs.innerHTML = '';
+
+                selected.forEach(
+                    id => {
+
+                        const input =
+                            document.createElement('input');
+
+                        input.type = 'hidden';
+
+                        input.name = 'student_ids[]';
+
+                        input.value = id;
+
+                        bulkDeleteInputs.appendChild(input);
+
+                    }
+                );
+
+            }
+        );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Edit Modal
     |--------------------------------------------------------------------------
     */
 
@@ -1541,71 +1515,42 @@
         email
     ) {
 
-        const modal =
-            document.getElementById('editModal');
+        document
+            .getElementById('editModal')
+            .style.display = 'block';
 
-        const form =
-            document.getElementById('editStudentForm');
+        document
+            .getElementById('editName')
+            .value = name;
 
-        const nameInput =
-            document.getElementById('editName');
+        document
+            .getElementById('editEmail')
+            .value = email;
 
-        const emailInput =
-            document.getElementById('editEmail');
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Set Form Action
-        |--------------------------------------------------------------------------
-        */
-
-        form.action =
+        document
+            .getElementById('editStudentForm')
+            .action =
             "{{ url('/students/update') }}/" + id;
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Fill Existing Data
-        |--------------------------------------------------------------------------
-        */
-
-        nameInput.value =
-            name;
-
-        emailInput.value =
-            email;
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Show Modal
-        |--------------------------------------------------------------------------
-        */
-
-        modal.style.display =
-            'block';
-
     }
 
 
     /*
     |--------------------------------------------------------------------------
-    | Close Edit Modal
+    | Close Modal
     |--------------------------------------------------------------------------
     */
 
     function closeEditModal()
     {
-        document.getElementById(
-            'editModal'
-        ).style.display = 'none';
+        document
+            .getElementById('editModal')
+            .style.display = 'none';
     }
 
 
     /*
     |--------------------------------------------------------------------------
-    | Close Modal When Clicking Outside
+    | Outside Click
     |--------------------------------------------------------------------------
     */
 
@@ -1615,7 +1560,6 @@
 
             const modal =
                 document.getElementById('editModal');
-
 
             if (event.target === modal) {
 
@@ -1627,16 +1571,9 @@
     );
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | Initial Count
-    |--------------------------------------------------------------------------
-    */
-
     updateSelectedCount();
 
 </script>
-
 
 </body>
 

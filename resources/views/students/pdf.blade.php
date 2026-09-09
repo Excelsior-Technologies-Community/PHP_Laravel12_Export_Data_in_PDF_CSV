@@ -5,13 +5,12 @@
 
     <meta charset="UTF-8">
 
-    <title>Students List</title>
+    <title>Students Report</title>
 
     <style>
-
         body {
             font-family: DejaVu Sans, sans-serif;
-            font-size: 12px;
+            font-size: 11px;
         }
 
         h2 {
@@ -27,7 +26,7 @@
 
         .summary {
             margin-bottom: 15px;
-            font-size: 11px;
+            font-size: 10px;
         }
 
         table {
@@ -35,50 +34,75 @@
             border-collapse: collapse;
         }
 
-        table th {
+        th {
             background-color: #f1f5f9;
             border: 1px solid #000;
-            padding: 8px;
+            padding: 7px;
             text-align: left;
         }
 
-        table td {
+        td {
             border: 1px solid #000;
-            padding: 8px;
+            padding: 7px;
         }
 
-        tr:nth-child(even) {
-            background-color: #f9fafb;
+        .active {
+            color: green;
+            font-weight: bold;
         }
 
+        .inactive {
+            color: red;
+            font-weight: bold;
+        }
     </style>
 
 </head>
 
 <body>
 
-    <h2>🎓 Students List</h2>
+    <h2>
+        🎓 Students Report
+    </h2>
 
+    <div class="subtitle">
 
-    @if(!empty($search))
+        @if(!empty($search))
 
-        <div class="subtitle">
-            Search Results For:
-            <strong>{{ $search }}</strong>
-        </div>
+        Search:
+        <strong>{{ $search }}</strong>
 
-    @else
+        @endif
 
-        <div class="subtitle">
-            Student Data Report
-        </div>
+        @if(!empty($status))
 
-    @endif
+        |
+        Status:
+        <strong>{{ ucfirst($status) }}</strong>
 
+        @endif
+
+        @if(!empty($fromDate))
+
+        |
+        From:
+        <strong>{{ $fromDate }}</strong>
+
+        @endif
+
+        @if(!empty($toDate))
+
+        |
+        To:
+        <strong>{{ $toDate }}</strong>
+
+        @endif
+
+    </div>
 
     <div class="summary">
 
-        <strong>Total Students:</strong>
+        <strong>Total:</strong>
         {{ $students->count() }}
 
         &nbsp;&nbsp;&nbsp;
@@ -93,24 +117,25 @@
 
         <thead>
 
-        <tr>
+            <tr>
 
-            <th>ID</th>
+                <th>ID</th>
 
-            <th>Name</th>
+                <th>Name</th>
 
-            <th>Email</th>
+                <th>Email</th>
 
-            <th>Created At</th>
+                <th>Status</th>
 
-        </tr>
+                <th>Created At</th>
+
+            </tr>
 
         </thead>
 
-
         <tbody>
 
-        @forelse($students as $s)
+            @forelse($students as $s)
 
             <tr>
 
@@ -127,22 +152,31 @@
                 </td>
 
                 <td>
+
+                    <span
+                        class="{{ $s->status === 'active' ? 'active' : 'inactive' }}">
+                        {{ ucfirst($s->status) }}
+                    </span>
+
+                </td>
+
+                <td>
                     {{ $s->created_at->format('d M Y, h:i A') }}
                 </td>
 
             </tr>
 
-        @empty
+            @empty
 
             <tr>
 
-                <td colspan="4">
+                <td colspan="5">
                     No students found.
                 </td>
 
             </tr>
 
-        @endforelse
+            @endforelse
 
         </tbody>
 
