@@ -226,6 +226,11 @@ class StudentController extends Controller
             'created_at'
         )->first();
 
+        $searchSuggestions = Student::query()
+            ->select('id', 'name', 'email')
+            ->orderBy('name')
+            ->get();
+
         return view(
             'students.index',
             compact(
@@ -242,7 +247,8 @@ class StudentController extends Controller
                 'inactiveStudents',
                 'studentsToday',
                 'studentsThisWeek',
-                'latestStudent'
+                'latestStudent',
+                'searchSuggestions'
             )
         );
     }
@@ -685,6 +691,36 @@ class StudentController extends Controller
         return $pdf->download(
             'selected-students.pdf'
         );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Selected Print Report
+    |--------------------------------------------------------------------------
+    */
+
+    public function printSelectedReport(
+        Request $request
+    ) {
+        $validated = $request->validate([
+            'student_ids' => 'required|array|min:1',
+            'student_ids.*' => 'integer|exists:students,id',
+        ]);
+
+        $students = Student::whereIn(
+            'id',
+            $validated['student_ids']
+        )
+            ->orderBy('id', 'asc')
+            ->get();
+
+        return view('students.print', [
+            'students' => $students,
+            'search' => '',
+            'status' => '',
+            'fromDate' => '',
+            'toDate' => '',
+        ]);
     }
 
     /*

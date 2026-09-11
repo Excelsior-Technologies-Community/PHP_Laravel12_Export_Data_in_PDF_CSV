@@ -514,6 +514,7 @@
         <form
             method="GET"
             action="{{ route('students.index') }}"
+            id="filter-form"
         >
 
             <div class="filter-grid">
@@ -527,9 +528,27 @@
                     <input
                         type="text"
                         name="search"
+                        id="student-search"
+                        list="student-suggestions"
                         value="{{ $search }}"
-                        placeholder="ID, name or email"
+                        placeholder="Live search by ID, name or email"
                     >
+
+                    <datalist id="student-suggestions">
+
+                        @foreach($searchSuggestions as $suggestion)
+
+                            <option value="{{ $suggestion->name }}">
+                                {{ $suggestion->email }} (ID: {{ $suggestion->id }})
+                            </option>
+
+                            <option value="{{ $suggestion->email }}">
+                                {{ $suggestion->name }} (ID: {{ $suggestion->id }})
+                            </option>
+
+                        @endforeach
+
+                    </datalist>
 
                 </div>
 
@@ -692,6 +711,16 @@
                 ☑ Selected PDF
             </button>
 
+            <button
+                type="submit"
+                form="selected-export-form"
+                name="export_type"
+                value="print"
+                class="purple"
+            >
+                ☑ Selected Print
+            </button>
+
         </div>
 
         <div style="margin-top:10px">
@@ -784,6 +813,7 @@
     <form
         method="POST"
         id="selected-export-form"
+        target="_blank"
     >
 
         @csrf
@@ -1236,15 +1266,25 @@
     |--------------------------------------------------------------------------
     */
 
+    const selectionStorageKey = 'students.selectedIds';
+
+    const selectedStudentIds = new Set(
+        JSON.parse(
+            localStorage.getItem(selectionStorageKey) || '[]'
+        )
+    );
+
+    function saveSelectedStudents()
+    {
+        localStorage.setItem(
+            selectionStorageKey,
+            JSON.stringify(Array.from(selectedStudentIds))
+        );
+    }
+
     function getSelectedStudents()
     {
-        return Array.from(
-            document.querySelectorAll(
-                '.student-checkbox:checked'
-            )
-        ).map(
-            checkbox => checkbox.value
-        );
+        return Array.from(selectedStudentIds);
     }
 
 
@@ -1259,16 +1299,16 @@
         const selected =
             getSelectedStudents();
 
-        selectedCount.textContent =
-            selected.length;
+        selectedCount.textContent = selected.length;
 
-        bulkSelectedCount.textContent =
-            selected.length;
+        bulkSelectedCount.textContent = selected.length;
 
         if (checkboxes.length > 0) {
 
             selectAll.checked =
-                selected.length === checkboxes.length;
+                Array.from(checkboxes).every(
+                    checkbox => selectedStudentIds.has(checkbox.value)
+                );
 
         } else {
 
@@ -1292,9 +1332,16 @@
                 checkbox => {
                     checkbox.checked =
                         selectAll.checked;
+
+                    if (selectAll.checked) {
+                        selectedStudentIds.add(checkbox.value);
+                    } else {
+                        selectedStudentIds.delete(checkbox.value);
+                    }
                 }
             );
 
+            saveSelectedStudents();
             updateSelectedCount();
         }
     );
@@ -1311,7 +1358,16 @@
 
             checkbox.addEventListener(
                 'change',
-                updateSelectedCount
+                function () {
+                    if (checkbox.checked) {
+                        selectedStudentIds.add(checkbox.value);
+                    } else {
+                        selectedStudentIds.delete(checkbox.value);
+                    }
+
+                    saveSelectedStudents();
+                    updateSelectedCount();
+                }
             );
 
         }
@@ -1350,10 +1406,15 @@
                 exportForm.action =
                     "{{ route('students.selected.csv') }}";
 
-            } else {
+            } else if (exportType === 'pdf') {
 
                 exportForm.action =
                     "{{ route('students.selected.pdf') }}";
+
+            } else {
+
+                exportForm.action =
+                    "{{ route('students.selected.print') }}";
 
             }
 
@@ -1571,7 +1632,26 @@
     );
 
 
+    checkboxes.forEach(
+        checkbox => {
+            checkbox.checked = selectedStudentIds.has(checkbox.value);
+        }
+    );
+
     updateSelectedCount();
+
+    let searchTimer;
+
+    document
+        .getElementById('student-search')
+        .addEventListener('input', function () {
+            window.clearTimeout(searchTimer);
+
+            searchTimer = window.setTimeout(
+                () => document.getElementById('filter-form').submit(),
+                400
+            );
+        });
 
 </script>
 
